@@ -35,7 +35,23 @@ def find_shortest_distance_node():
             node_id=i
     return node_id
 
-def dijkstra(src_id:int):
-    # 시작 노드에 대해서 초기화
-    """
-    """
+def dijkstra():
+    # 최단 거리가 가장 짧은 노드
+    for _ in range(N): # 최대 노드 수 만큼 반복
+        node=find_shortest_distance_node()
+        visited[node]=True # 방문 처리
+        for (tar,weight) in adj[node]:
+            if distance[node]+weight<distance[tar]:
+                distance[tar]=distance[node]+weight
+
+dijkstra(src_id=src_id)
+for tar,dist in enumerate(distance):
+    if dist==INF:
+        dist=-1
+    print(f"{src_id} to {tar} shortest_path distance: {dist}")
+
+
+"""
+개선된 다익스트라 알고리즘
+    최단 거리 노드 탐색에 heap 자료구조 (완전 이진 트리) 적용 => 우선순위 큐
+"""
