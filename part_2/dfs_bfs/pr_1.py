@@ -11,35 +11,32 @@
 
 """
 import sys
-input=sys.stdin.readline
+input=sys.stdin.readline # \n까지 같이 입력된다, split()은 공백(개행문자 포함) 기준으로 분리
 
 N,M=map(int,input().split())
-adj=[list(map(int,input().split())) for _ in range(N)]
+adj=[list(map(int,input().strip())) for _ in range(N)] # strip은 개행문자 제거
 
-
-def dfs(x,y):
+def dfs(adj,x,y):
     # 주어진 범위를 벗어나는 경우에는 즉시 종료
     if x<0 or x>=N or y<0 or y>=M:
         return False
-
     # 현재 노드를 아직 방문하지 않았다면
     if adj[x][y]==0:
         # 해당 노드 방문 처리
         adj[x][y]=1
-        # 상,하,좌,우 위치도 모두 재귀적으로 호출
-        dfs(x-1,y)
-        dfs(x,y-1)
-        dfs(x+1,y)
-        dfs(x,y+1)
+        # 상, 하, 좌, 우의 위치도 모두 재귀적으로 호출
+        dfs(adj,x-1,y)
+        dfs(adj,x,y-1)
+        dfs(adj,x+1,y)
+        dfs(adj,x,y+1)
         return True
-    else:
-        return False
+    return False
 
-# 모든 노드에 대하여 음료수 채우기
+# 모든 노드(위치)에 대하여 음료수 채우기
 result=0
-for x in range(N):
-    for y in range(M):
+for i in range(N):
+    for j in range(M):
         # 현재 위치에서 DFS 수행
-        if dfs(x,y)==True:
+        if dfs(adj,i,j):
             result+=1
 print(result)

@@ -1,5 +1,11 @@
 """
-플로이드 워셜 알고리즘
+<<플로이드 워셜 알고리즘>>
+모든 지점에서 다른 모든 지점까지의 최단 경로를 모두 구해야 하는 경우.
+다이나믹 프로그래밍으로 분류.
+
+알고리즘 원리:
+
+
 """
 import sys
 input=sys.stdin.readline
@@ -8,14 +14,13 @@ INF=int(1e9)
 
 N,M=map(int,input().split()) # N: node 수, M: edge 수
 
+
 # 2차원 리스트를 만들고, 모든 값을 무한으로 초기화
 distance=[[INF] * N for _ in range(N)]
 
 # 자기 자신에서 자기 자신으로 가는 비용은 0으로 초기화
-for row in range(N):
-    for col in range(N):
-        if row==col:
-            distance[row][col]=0
+for i in range(N):
+    distance[i][i]=0
 
 # 각 간선에 대한 정보를 입력받아, 그 값으로 초기화
 for _ in range(M):
